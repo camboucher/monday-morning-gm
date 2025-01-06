@@ -14,14 +14,16 @@ import { Input } from "@/components/ui/input";
 
 interface Props {
   setIsLoggedIn: (isLoggedIn: boolean) => void;
+  setIsLoading: (isLoading: boolean) => void;
 }
 
-const WelcomePage = ({ setIsLoggedIn }: Props) => {
+export const WelcomePage = ({ setIsLoggedIn, setIsLoading }: Props) => {
   const [leagueId, setLeagueId] = useState("");
 
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsLoggedIn(true);
+    setIsLoading(true);
     console.log("Connecting to league:", leagueId);
   };
 
@@ -186,5 +188,3 @@ const WelcomePage = ({ setIsLoggedIn }: Props) => {
     </div>
   );
 };
-
-export default WelcomePage;

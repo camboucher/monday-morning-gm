@@ -1,11 +1,18 @@
 import { useState } from "react";
-import FantasyWrappedStory from "./pages/Insight";
-import WelcomePage from "./pages/WelcomePage";
+import { WelcomePage, LoadingScreen, FantasyWrappedStory } from "./pages";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  return isLoggedIn ? <FantasyWrappedStory /> : <WelcomePage setIsLoggedIn={setIsLoggedIn}/>;
+  switch(true) {
+    case isLoading:
+      return <LoadingScreen onLoadingComplete={setIsLoading}/>
+    case !isLoggedIn:
+      return <WelcomePage setIsLoggedIn={setIsLoggedIn} setIsLoading={setIsLoading} />
+    default:
+      return <FantasyWrappedStory />
+  }
 }
 
 export default App;
