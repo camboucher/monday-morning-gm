@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { HelpCircle, Coffee, ArrowRight, Sun, Newspaper } from "lucide-react";
 import {
@@ -13,20 +12,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface Props {
-  setIsLoggedIn: (isLoggedIn: boolean) => void;
-  setIsLoading: (isLoading: boolean) => void;
+  leagueId: string;
+  setLeagueId: (leagueId: string) => void;
+  handleSubmit: () => void;
 }
 
-export const WelcomePage = ({ setIsLoggedIn, setIsLoading }: Props) => {
-  const [leagueId, setLeagueId] = useState("");
-
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    setIsLoggedIn(true);
-    setIsLoading(true);
-    console.log("Connecting to league:", leagueId);
-  };
-
+export const WelcomePage = ({ leagueId, setLeagueId, handleSubmit }: Props) => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-900 via-orange-800 to-red-900 text-white">
       {/* Morning Sky Design Element */}
