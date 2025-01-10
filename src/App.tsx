@@ -22,10 +22,9 @@ function App() {
 
   const handleSubmit = async () => {
     try {
-      const leagueData = await fetch(`/api/league?leagueId=${leagueId}`).then(
-        (r) => r.json()
-      );
-      console.log(leagueData);
+      const leagueData = await fetch(
+        `/api/leagues/league?leagueId=${leagueId}`
+      ).then((res) => res.json());
       if (leagueData) {
         setIsLoggedIn(true);
         setIsLoading(true);
@@ -33,7 +32,9 @@ function App() {
       }
     } catch (e) {
       console.log(e);
-      window.alert("Issue logging in. Please make sure you're id is valid and try again")      
+      window.alert(
+        "Issue logging in. Please make sure you're id is valid and try again"
+      );
     }
   };
 

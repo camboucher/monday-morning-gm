@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Coffee, Check, Loader } from "lucide-react";
-import { fetchLeague } from "../apiQueries";
 
 interface LoadingStep {
   label: string;
@@ -71,7 +70,7 @@ export const LoadingScreen = ({ onLoadingComplete }: LoadingScreenProps) => {
     {
       label: "Connecting to league",
       duration: 2000,
-      apiCall: () => fetchLeague("1124842192234356736"),
+      apiCall: () => new Promise((resolve) => setTimeout(resolve, 500)),
     },
     {
       label: "Fetching roster data",

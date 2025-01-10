@@ -1,0 +1,58 @@
+{
+  "version": 3,
+  "routes": [
+    {
+      "src": "^/(?:(.+)/)?index(?:\\.html)?/?$",
+      "headers": {
+        "Location": "/$1"
+      },
+      "status": 308
+    },
+    {
+      "src": "^/(.*)\\.html/?$",
+      "headers": {
+        "Location": "/$1"
+      },
+      "status": 308
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "^/api/analysis/draft$",
+      "dest": "/api/analysis/draft",
+      "check": true
+    },
+    {
+      "src": "^/api/analysis/injuries$",
+      "dest": "/api/analysis/injuries",
+      "check": true
+    },
+    {
+      "src": "^/api/analysis/matchups$",
+      "dest": "/api/analysis/matchups",
+      "check": true
+    },
+    {
+      "src": "^/api/analysis/types$",
+      "dest": "/api/analysis/types",
+      "check": true
+    },
+    {
+      "src": "^/api/analysis/utils$",
+      "dest": "/api/analysis/utils",
+      "check": true
+    },
+    {
+      "src": "^/api/analysis/waivers$",
+      "dest": "/api/analysis/waivers",
+      "check": true
+    },
+    {
+      "src": "^/api/leagues/league$",
+      "dest": "/api/leagues/league",
+      "check": true
+    }
+  ],
+  "overrides": {}
+}
