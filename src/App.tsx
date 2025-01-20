@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { WelcomePage, LoadingScreen, FantasyWrappedStory } from "./pages";
 
+const { API_URL } = process.env;
 const SLEEPER_STORAGE_KEY = "sleeper-league-id";
 
 function App() {
@@ -11,46 +12,46 @@ function App() {
   useEffect(() => {
     try {
       const storageId = localStorage.getItem(SLEEPER_STORAGE_KEY);
-      if (storageId) {
+      if (storageId?.length) {
+        console.log(storageId);
         setLeagueId(storageId);
-        handleSubmit();
+        handleSubmit(storageId);
       }
     } catch (e) {
       console.log(e);
     }
   }, []);
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async (id: string) => {
     try {
-      const leagueData = await fetch(`/api/league?leagueId=${leagueId}`).then(
-        (r) => r.json()
-      );
-      console.log(leagueData);
-      if (leagueData) {
+      const validateLeagueId = await fetch(`${API_URL}/leagues/${id}`);
+      if (validateLeagueId.status === 200) {
         setIsLoggedIn(true);
         setIsLoading(true);
-        localStorage.setItem(SLEEPER_STORAGE_KEY, leagueId);
+        localStorage.setItem(SLEEPER_STORAGE_KEY, id);
+      } else {
+        alert(
+          "Couldn't fetch league data. Please check that you're leagueId is correct and try again"
+        );
       }
     } catch (e) {
-      console.log(e);
-      window.alert("Issue logging in. Please make sure you're id is valid and try again")      
+      alert("Technical error, please try again");
+      console.error(e);
     }
-  };
+  }, []);
 
-  switch (true) {
-    case isLoading:
-      return <LoadingScreen onLoadingComplete={setIsLoading} />;
-    case !isLoggedIn:
-      return (
-        <WelcomePage
-          handleSubmit={handleSubmit}
-          leagueId={leagueId}
-          setLeagueId={setLeagueId}
-        />
-      );
-    default:
-      return <FantasyWrappedStory />;
+  if (isLoading) {
+    return <LoadingScreen onLoadingComplete={setIsLoading} />;
+  } else if (!isLoggedIn) {
+    return (
+      <WelcomePage
+        handleSubmit={() => handleSubmit(leagueId)}
+        leagueId={leagueId}
+        setLeagueId={setLeagueId}
+      />
+    );
   }
+  return <FantasyWrappedStory />;
 }
 
 export default App;

@@ -10,5 +10,8 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  define: {
+    'process.env.API_URL': JSON.stringify(process.env.API_URL || 'http://localhost:3000')
+  }
 })
 

@@ -62,7 +62,13 @@ export const WelcomePage = ({ leagueId, setLeagueId, handleSubmit }: Props) => {
           transition={{ delay: 0.2 }}
           className="max-w-md mx-auto"
         >
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit();
+            }}
+            className="space-y-4"
+          >
             <div className="relative">
               <Input
                 type="text"
