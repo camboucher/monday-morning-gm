@@ -1,50 +1,27 @@
-# React + TypeScript + Vite
+# Monday Morning GM
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A "Spotify Wrapped"-style recap for your fantasy football season. Enter a Sleeper league ID and get an animated story of season insights — best drafter, best decision maker, trade activity, and more — built from real league data.
 
-Currently, two official plugins are available:
+**Live demo:** https://monday-morning-gm.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## How it works
 
-## Expanding the ESLint configuration
+1. Enter a Sleeper league ID on the welcome screen.
+2. The app validates it and fetches league data from [mmgm-api](https://github.com/camboucher/mmgm-api), the backend that talks to Sleeper and computes the season insights.
+3. Results play back as a series of animated, swipeable insight cards.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Stack
 
-- Configure the top-level `parserOptions` property like this:
+- React + TypeScript + Vite
+- Tailwind CSS + shadcn/ui (Radix primitives)
+- Framer Motion for the story transitions
+- Recharts for in-story data viz
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Local development
+
+```bash
+yarn install
+yarn start
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Requires an `API_URL` environment variable pointing at a running [mmgm-api](https://github.com/camboucher/mmgm-api) instance.
